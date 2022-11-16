@@ -33,7 +33,7 @@ class Veiculo:
         self.set_ano(conversao_segura(int, dados[3], 0, 'ano'))
         self.set_odometro(conversao_segura(int, dados[4], 0, 'odometro'))
         self.set_cidade(conversao_segura(str, dados[5], '', 'cidade'))
-        self.set_disponvel(conversao_segura(str, dados[6], 'N', 'dispoivel'))
+        self.set_disponivel(conversao_segura(str, dados[6], 'N', 'disponivel'))
         self.set_valor_diaria(conversao_segura(float, dados[7], 0.0, 'valor_diaria'))
         self.set_valor_km_rodado(conversao_segura(float, dados[8], 0.0, 'valor_km_rodado'))
 
@@ -82,7 +82,7 @@ class Veiculo:
         if not isinstance(odometro, int):
             return None
 
-        return self._odometro
+        self._odometro = odometro
     
     def get_cidade(self):
         return self._cidade
@@ -93,10 +93,10 @@ class Veiculo:
         
         self._cidade = cidade
     
-    def get_disponivel(self):
+    def is_disponivel(self):
         return self._disponivel
 
-    def set_disponvel(self, disponivel):
+    def set_disponivel(self, disponivel):
         if isinstance(disponivel, str):
             disponivel = True if disponivel == 'S' else False
 
@@ -122,4 +122,7 @@ class Veiculo:
             return None
 
         self._valor_km_rodado = valor_km_rodado
+    
+    def get_row(self):
+      return self.serializar().replace('\n', '')  
 

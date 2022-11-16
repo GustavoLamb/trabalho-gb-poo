@@ -1,5 +1,17 @@
 import os
 
+def table_format(cabecalho, dados, width=15):
+    headers = cabecalho.split("\t")
+    datas = [dado.split('\t') for dado in dados]
+    
+    for header in headers:
+        print(header, end=f"{' ' * (width -(len(header) + 1))}")
+    print()
+
+    for row in datas:
+        for data in row:
+            print(data, end=f"{' ' * (width -(len(data) + 1))}")
+        print()
 
 def conversao_segura(tipo, valor, default, parametro: str=None):
     try:
@@ -28,7 +40,7 @@ def entrada_segura(dica, tipo=str, opcoes=None):
 
                 if entrada not in opcoes:
                     print("Valor não é uma opção válida: ", opcoes)
-                    input("Pressione ENTER para continuar")
+                    input("\nPressione ENTER para continuar")
                     limpar_console()
 
                 continue
@@ -36,7 +48,7 @@ def entrada_segura(dica, tipo=str, opcoes=None):
             seguro = True
         except ValueError as E:
             print("Erro: Valor inválido")
-            input("Pressione ENTER para continuar")
+            input("\nPressione ENTER para continuar")
             limpar_console()
 
     return entrada

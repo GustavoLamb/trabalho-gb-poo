@@ -9,3 +9,4 @@ veiculo	cliente	origem	destino	km_rodado	qt_dias_reserva	qt_dias_realizado
 7	Pedro	São Leopoldo	São Leopoldo	478	2	4
 2	Pedro	São Leopoldo			6	
 5	Maria	Blumenau			3	
+10	Gustavo	Lages			4	

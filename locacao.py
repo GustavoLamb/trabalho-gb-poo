@@ -5,43 +5,47 @@ from veiculo import Veiculo
 class Locacao:
 
     # Construtor
-    def __init__(self, linha='', veiculos=[]) -> None:
-        self._veiculo: Veiculo = None
-        self._cliente = ''
-        self._origem = ''
+    def __init__(self, veiculo=None, cliente='', origem='', qt_dias_reserva=0, linha='', veiculos=[]):
+        self._veiculo: Veiculo = veiculo
+        self._cliente = cliente
+        self._origem = origem
         self._destino = ''
         self._km_rodado = 0
-        self._qt_dias_reserva = 0
-        self._qt_dias_realizado = None
+        self._qt_dias_reserva = qt_dias_reserva
+        self._qt_dias_realizado = 0
 
         if linha != '' and len(veiculos) != 0:
-            pass
+            self.deserializar(linha, veiculos)
 
     # Métodos publicos
     def valor_diarias(self):
         valor_veiculo = self._veiculo.get_valor_diaria()
         
-        return valor_veiculo * self._qt_dias_realizado
+        return valor_veiculo * self._qt_dias_reserva
     
     def valor_km_rodado(self):
         valor_veiculo = self._veiculo.get_valor_km_rodado()
 
         return valor_veiculo * self._km_rodado
+    
+    def is_finalizado(self):
+        return self._qt_dias_realizado !=0 and self._km_rodado != 0
 
     # Métodos especiais
     def serializar(self):
         id_veiculo = self._veiculo.get_codigo()
-        dias_realizados = self._qt_dias_realizado if self._qt_dias_realizado else ''
+        km_rodado = self._km_rodado if self._qt_dias_realizado !=0 else ''
+        dias_realizados = self._qt_dias_realizado if self._qt_dias_realizado !=0 else ''
 
-        return f'\n{id_veiculo}\t{self._cliente}\t{self._origem}\t{self._destino}\t{self._km_rodado}' + \
-            f'\t{self._qt_dias_reserva}\t{self._qt_dias_realizado}'
+        return f'\n{id_veiculo}\t{self._cliente}\t{self._origem}\t{self._destino}\t{km_rodado}' + \
+            f'\t{self._qt_dias_reserva}\t{dias_realizados}'
     
     def deserializar(self, linha, veiculos: List[Veiculo]):
         dados = linha.split('\t')
         self.set_cliente(conversao_segura(str, dados[1], '', 'cliente'))
         self.set_origem(conversao_segura(str, dados[2], '', 'origem'))
         self.set_destino(conversao_segura(str, dados[3], '', 'destino'))
-        self.set_km_rodado(conversao_segura(int, dados[4], '', 'km_rodado'))
+        self.set_km_rodado(conversao_segura(int, dados[4], 0, 'km_rodado'))
         self.set_qt_dias_reserva(conversao_segura(int, dados[5], '', 'qt_dias_reserva'))
         try:
             self.set_qt_dias_realizado(conversao_segura(int, dados[6], 0, 'qt_dias_realizado'))
@@ -119,3 +123,6 @@ class Locacao:
             return None
         
         self._qt_dias_realizado = qt_dias_realizado
+
+    def get_row(self):
+      return self.serializar().replace('\n', '')

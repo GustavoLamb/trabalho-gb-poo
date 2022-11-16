@@ -34,24 +34,34 @@ if __name__ == '__main__':
         escolha = menu()
         
         if escolha == '1':
-            print("Implementar: Consultar Veículos")
-            pass
+            atributo = entrada_segura('Informe o parametro para consulta: ', opcoes=['Modelo', 'Cor', 'Ano', 'Cidade']).lower()
+            tipo_atributo = int if atributo == 'ano' else str
+            valor_consulta = entrada_segura('Informe o valor para consulta: ', tipo_atributo)
+            
+            limpar_console()
+            locadora.consultar_veiculos(atributo, valor_consulta)
         elif escolha == '2':
-            print("Implementar: Realizar Locação")
+            cidade_origem = entrada_segura('Informe a cidade de origem: ')
+            
+            limpar_console()
+            locadora.realizar_locacao(cidade_origem)
             pass
         elif escolha == '3':
             print("Implementar: Realizar Devolução")
             pass
         elif escolha == '4':
-            print("Implementar: Consultar Locações")
-            pass
+            valor_consulta = entrada_segura("Informe o modelo do veículo ou nome do cliente para consulta: ")
+            
+            limpar_console()
+            locadora.consultar_locacoes(valor_consulta)
         elif escolha == '5':
             print("Implementar: Resumo")
             pass
         elif escolha == '6':
-            print("Implementar: Salvar")
+            locadora.salvar_dados()
             pass
         elif escolha == '7':
+            locadora.salvar_dados()
             continue
         else:
             print("Opção não implementada")
