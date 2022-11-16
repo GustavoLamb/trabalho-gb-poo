@@ -1,0 +1,11 @@
+codigo	modelo	cor	ano	odometro	cidade	disponivel	valor_diaria	valor_km_rodado
+1	Gol	Cinza	2016	137852	Porto Alegre	S	108.67	0.93
+2	Up	Branco	2017	86541	São Leopoldo	N	70.12	0.47
+3	Argo	Preto	2019	42876	Canoas	S	121.4	1.02
+4	Mobi	Vermelho	2018	61907	Curitiba	S	76.19	0.39
+5	Gol	Azul	2019	49389	Blumenau	N	77.47	0.51
+6	Onix	Prata	2017	77635	Florianópolis	N	78.74	0.55
+7	Sandero	Cinza	2019	34518	São Leopoldo	S	82.61	0.64
+8	Duster	Branco	2018	57114	Porto Alegre	S	118.17	1.05
+9	Cruze	Preto	2020	8013	Pelotas	N	120.63	1.08
+10	Argo	Vermelho	2017	106857	Lages	S	91.96	0.63
