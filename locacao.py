@@ -17,11 +17,20 @@ class Locacao:
         if linha != '' and len(veiculos) != 0:
             self.deserializar(linha, veiculos)
 
-    # Métodos publicos
-    def valor_diarias(self):
+    # Métodos publicos 
+    def valor_diarias(self, utilizado=False):
         valor_veiculo = self._veiculo.get_valor_diaria()
-        
-        return valor_veiculo * self._qt_dias_reserva
+        valor = valor_veiculo * self._qt_dias_reserva
+
+        if utilizado:
+            if self._qt_dias_reserva > self._qt_dias_realizado:
+                return valor - (valor * 0.2)
+            elif self._qt_dias_reserva < self._qt_dias_realizado:
+                return valor + valor * 0.3
+            else:
+                return valor
+
+        return valor 
     
     def valor_km_rodado(self):
         valor_veiculo = self._veiculo.get_valor_km_rodado()

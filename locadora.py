@@ -54,15 +54,19 @@ class Locadora:
         table_format(CABECALHO_VEICULOS, [veiculo.get_row() for veiculo in veiculos_disponiveis])
 
         locacao = self._realiza_locacao(veiculos_disponiveis, cidade_origem)
+        if locacao is None:
+            return None
+
+        veiculo = locacao.get_veiculo()
 
         print(f"Valor total díarias: {locacao.valor_diarias():.2f}")
         if entrada_segura("\nDeseja realizar a locacao: ", opcoes='SsNn') in 'Nn':
             print("Locação não realizada!")
             return None
 
-        self._atualizar_disponibilidade_veiculo(locacao.get_veiculo().get_codigo(), False)
+        veiculo.set_disponivel(False)
         self._locacoes.append(locacao)
-        print("Locação realizado com sucesso!!")
+        print("Locação realizada com sucesso!!")
 
     def consultar_locacoes(self, busca):
         data_veiculos = []
@@ -80,6 +84,40 @@ class Locadora:
             table_format(CABECALHO_LOCACOES, data_locacao, width = 20)
             print("\nVeiculos: \n")
             table_format(CABECALHO_VEICULOS, data_veiculos)
+
+    def realizar_devolucao(self, cliente, cidade_devolucao, km_percorrido):
+        locacao_cliente = self._consultar_locacao_cliente(cliente)
+        veiculo_cliente = locacao_cliente.get_veiculo()
+
+        if locacao_cliente == None:
+            print("Cliente informado não possui locação!!")
+            return None
+        
+        print(f"Dias contratados: {locacao_cliente.get_qt_dias_reserva()} dias.")
+        resposta = entrada_segura("Foram utlizados apenas esses dias: ", opcoes='SsNn')
+
+        if resposta in 'Nn':
+            dias = entrada_segura("Quantos dias foram utilzados: ", int)
+            locacao_cliente.set_qt_dias_realizado(dias)
+        else:
+            locacao_cliente.set_qt_dias_realizado(locacao_cliente.get_qt_dias_reserva())
+        
+        locacao_cliente.set_km_rodado(km_percorrido)
+
+        limpar_console()
+
+        valor_diarias = locacao_cliente.valor_diarias(True)
+        valor_km = locacao_cliente.valor_km_rodado()
+        print(f"Valor referente aos KM percorridos: {valor_km:.2f}")
+        print(f"Valor total locação: {valor_diarias + valor_km:.2f}")
+        input("\nPressione ENTER para continuar")
+
+        limpar_console()
+        odometro_atualizado = veiculo_cliente.get_odometro() + km_percorrido
+        locacao_cliente.set_destino(cidade_devolucao)
+        veiculo_cliente.set_odometro(odometro_atualizado)
+        veiculo_cliente.set_disponivel(True)
+        print("Devolução concluída com sucesso!!")
 
     #Getters
     def get_veiculos(self):
@@ -136,13 +174,20 @@ class Locadora:
                 break
         
         nome_cliente = entrada_segura('Informe o seu nome: ')
+
+        if self._consultar_locacao_cliente(nome_cliente):
+            print("Cliente já possui a locação de um véiculo")
+            return None
+
         diarias = entrada_segura('Informe o número de díarias: ', int)
 
         limpar_console()
         return Locacao(veiculo_escolhido, nome_cliente, cidade_origem, diarias)
-    
-    def _atualizar_disponibilidade_veiculo(self, cod_veiculo, disponivel):
-        for veiculo in self._veiculos:
-            if veiculo.get_codigo() == cod_veiculo:
-                veiculo.set_disponivel(disponivel)
-                break
+ 
+    def _consultar_locacao_cliente(self, cliente):
+        
+        for locacao in self._locacoes:
+            if locacao.get_cliente() == cliente and not locacao.is_finalizado():
+                return locacao
+
+        return None

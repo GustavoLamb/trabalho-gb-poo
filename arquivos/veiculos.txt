@@ -8,4 +8,4 @@ codigo	modelo	cor	ano	odometro	cidade	disponivel	valor_diaria	valor_km_rodado
 7	Sandero	Cinza	2019	34518	São Leopoldo	S	82.61	0.64
 8	Duster	Branco	2018	57114	Porto Alegre	S	118.17	1.05
 9	Cruze	Preto	2020	8013	Pelotas	N	120.63	1.08
-10	Argo	Vermelho	2017	106857	Lages	N	91.96	0.63
+10	Argo	Vermelho	2017	106877	Lages	S	91.96	0.63
