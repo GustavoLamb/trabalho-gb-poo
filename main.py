@@ -47,8 +47,12 @@ if __name__ == '__main__':
             locadora.realizar_locacao(cidade_origem)
             pass
         elif escolha == '3':
-            print("Implementar: Realizar Devolução")
-            pass
+            cliente = entrada_segura("Informe seu nome: ")
+            cidade_devolucao = entrada_segura("Informe a cidade da devolução: ")
+            km_percorrido = entrada_segura("Informe a quilometragem percorrida: ", int)
+            
+            limpar_console()
+            locadora.realizar_devolucao(cliente, cidade_devolucao, km_percorrido)
         elif escolha == '4':
             valor_consulta = entrada_segura("Informe o modelo do veículo ou nome do cliente para consulta: ")
             
