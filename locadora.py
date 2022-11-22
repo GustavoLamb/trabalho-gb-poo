@@ -191,3 +191,19 @@ class Locadora:
                 return locacao
 
         return None
+    
+    def resumo(self):
+        cont = 0
+        print("-- Resumo Locações Finalizadas -- ")
+        for locacao in self._locacoes:
+            if locacao.is_finalizado() == True:
+                cont +=1
+                print("Locação n°", cont,"e Veículo n°", locacao.get_veiculo().get_codigo())
+                print("Kms rodados", locacao.get_km_rodado(),"km") 
+                print("Dias contratados:", locacao.get_qt_dias_reserva(),"dias") 
+                print("Dias realizados:",locacao.get_qt_dias_realizado(), "dias") 
+                print('Valor das diárias contratadas: R$ {:.2f}'.format(locacao.diarias_contrat())) 
+                print('Valor das diárias extras: R$ {:.2f}'.format(locacao.diarias_extra())) 
+                print('Valor dos kms rodados: R$ {:.2f}'.format(locacao.valor_km_rodado()))
+                print('Valor Total da locação: R$ {:.2f}'.format(locacao.valor_total())) #
+                print()

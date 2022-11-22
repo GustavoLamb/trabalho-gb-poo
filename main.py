@@ -62,10 +62,7 @@ if __name__ == '__main__':
             limpar_console()
             locadora.consultar_locacoes(valor_consulta)
         elif escolha == '5':
-            print("Resumo Locações finalizadas")
-            #for locacao in locacoes:
-            #    locacoes.append(locacao.get_locacoes())
-            print(1)
+            locadora.resumo()
             
         elif escolha == '6':
             locadora.salvar_dados()

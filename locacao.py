@@ -5,7 +5,7 @@ from veiculo import Veiculo
 class Locacao:
 
     # Construtor
-    def _init_(self, veiculo=None, cliente='', origem='', qt_dias_reserva=0, linha='', veiculos=[]):
+    def __init__(self, veiculo=None, cliente='', origem='', qt_dias_reserva=0, linha='', veiculos=[]):
         self._veiculo: Veiculo = veiculo
         self._cliente = cliente
         self._origem = origem
@@ -45,6 +45,13 @@ class Locacao:
         else:
             return 0
     
+    def valor_total(self):
+        if self._qt_dias_realizado < self._qt_dias_reserva:
+            dias_desconto = self._qt_dias_reserva - self._qt_dias_realizado
+            return self.diarias_contrat() + dias_desconto * (self._veiculo.get_valor_diaria() * 0.2)
+        else:
+            return self.diarias_extra() + self.diarias_contrat()
+    
     def valor_km_rodado(self):
         valor_veiculo = self._veiculo.get_valor_km_rodado()
 
@@ -63,7 +70,6 @@ class Locacao:
             f'\t{self._qt_dias_reserva}\t{dias_realizados}'
     
     def deserializar(self, linha, veiculos: List[Veiculo]):
-        #
         dados = linha.split('\t')
         self.set_cliente(conversao_segura(str, dados[1], '', 'cliente'))
         self.set_origem(conversao_segura(str, dados[2], '', 'origem'))
@@ -149,13 +155,3 @@ class Locacao:
 
     def get_row(self):
       return self.serializar().replace('\n', '')
-
-    def resumo(self):
-        if self.is_finalizado() == True:
-            print("Kms rodados", self.get_km_rodado(),"km")
-            print("Dias contratados:", self.get_qt_dias_reserva(),"dias")
-            print("Dias realizados:",self.get_qt_dias_realizado(), "dias")
-            print("Valor das diárias contratadas: R$", self.diarias_contrat())
-            print("Valor das diárias extras: R$", self.diarias_extra())
-            print("Valor dos kms rodados: R$",self.valor_km_rodado(),"kms")
-            print("Valor Total da locação: R$",self.valor_diarias())
