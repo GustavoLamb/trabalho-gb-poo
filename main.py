@@ -1,5 +1,7 @@
 from locadora import Locadora
 from utils import limpar_console, entrada_segura
+#from locacao import Locacao
+#from veiculo import Veiculo
 
 #Função de menu
 def menu():
@@ -26,9 +28,10 @@ def menu():
 if __name__ == '__main__':
     
     # Inicia locadora
-    locadora = Locadora()
+    locadora = Locadora() 
 
-
+    locacoes = []
+    #veiculos = []
     escolha = '0'
     while escolha != '7':
         escolha = menu()
@@ -59,8 +62,11 @@ if __name__ == '__main__':
             limpar_console()
             locadora.consultar_locacoes(valor_consulta)
         elif escolha == '5':
-            print("Implementar: Resumo")
-            pass
+            print("Resumo Locações finalizadas")
+            #for locacao in locacoes:
+            #    locacoes.append(locacao.get_locacoes())
+            print(1)
+            
         elif escolha == '6':
             locadora.salvar_dados()
             pass
@@ -71,9 +77,3 @@ if __name__ == '__main__':
             print("Opção não implementada")
         
         input("\nPressione ENTER para continuar")
-
-
-
-
-
-
