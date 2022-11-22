@@ -32,6 +32,26 @@ class Locacao:
 
         return valor 
     
+    def diarias_contrat(self):
+        valor_veiculo = self._veiculo.get_valor_diaria()
+        valor = valor_veiculo * self._qt_dias_reserva
+        return valor
+    
+    def diarias_extra(self):
+        extra = self._qt_dias_realizado - self._qt_dias_reserva
+        if extra > 0:
+            valor_extra = self._veiculo.get_valor_diaria() + (self._veiculo.get_valor_diaria() * 0.3)
+            return extra * valor_extra
+        else:
+            return 0
+    
+    def valor_total(self):
+        if self._qt_dias_realizado < self._qt_dias_reserva:
+            dias_desconto = self._qt_dias_reserva - self._qt_dias_realizado
+            return self.diarias_contrat() + dias_desconto * (self._veiculo.get_valor_diaria() * 0.2)
+        else:
+            return self.diarias_extra() + self.diarias_contrat()
+    
     def valor_km_rodado(self):
         valor_veiculo = self._veiculo.get_valor_km_rodado()
 
