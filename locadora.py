@@ -205,5 +205,5 @@ class Locadora:
                 print('Valor das diárias contratadas: R$ {:.2f}'.format(locacao.diarias_contrat())) 
                 print('Valor das diárias extras: R$ {:.2f}'.format(locacao.diarias_extra())) 
                 print('Valor dos kms rodados: R$ {:.2f}'.format(locacao.valor_km_rodado()))
-                print('Valor Total da locação: R$ {:.2f}'.format(locacao.valor_total())) #
+                print('Valor Total da locação: R$ {:.2f}'.format(locacao.valor_total()))
                 print()
