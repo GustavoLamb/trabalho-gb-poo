@@ -44,7 +44,6 @@ if __name__ == '__main__':
             
             limpar_console()
             locadora.realizar_locacao(cidade_origem)
-            pass
         elif escolha == '3':
             cliente = entrada_segura("Informe seu nome: ")
             cidade_devolucao = entrada_segura("Informe a cidade da devolução: ")
@@ -59,7 +58,6 @@ if __name__ == '__main__':
             locadora.consultar_locacoes(valor_consulta)
         elif escolha == '5':
             locadora.resumo()
-            
         elif escolha == '6':
             locadora.salvar_dados()
             pass

@@ -18,39 +18,39 @@ class Locacao:
             self.deserializar(linha, veiculos)
 
     # Métodos publicos 
-    def valor_diarias(self, utilizado=False):
+    def valor_diarias(self, finalzado=False):
         valor_veiculo = self._veiculo.get_valor_diaria()
-        valor = valor_veiculo * self._qt_dias_reserva
+        valor_diaria = valor_veiculo * self._qt_dias_reserva
 
-        if utilizado:
-            if self._qt_dias_reserva > self._qt_dias_realizado:
-                return valor - (valor * 0.2)
-            elif self._qt_dias_reserva < self._qt_dias_realizado:
-                return valor + valor * 0.3
+        if finalzado:
+            dias =  self._qt_dias_realizado - self._qt_dias_reserva
+            if dias < 0:
+                dias = dias * -1
+                diarias_nao_usadas = valor_veiculo * dias
+                return valor_diaria - (diarias_nao_usadas + (diarias_nao_usadas * 0.2))
+            elif dias > 0:
+                diarias_extras = valor_veiculo * dias
+                return valor_diaria + (diarias_extras + (diarias_extras * 0.3))
             else:
-                return valor
+                return valor_diaria
 
-        return valor 
+        return valor_diaria 
     
-    def diarias_contrat(self):
+    def valor_diarias_extras(self):
         valor_veiculo = self._veiculo.get_valor_diaria()
-        valor = valor_veiculo * self._qt_dias_reserva
-        return valor
-    
-    def diarias_extra(self):
-        extra = self._qt_dias_realizado - self._qt_dias_reserva
-        if extra > 0:
-            valor_extra = self._veiculo.get_valor_diaria() + (self._veiculo.get_valor_diaria() * 0.3)
-            return extra * valor_extra
-        else:
-            return 0
+
+        if self.is_finalizado():
+            dias =  self._qt_dias_realizado - self._qt_dias_reserva
+            if dias > 0:
+                diarias_extras = valor_veiculo * dias
+                return (diarias_extras + (diarias_extras * 0.3))
+            else:
+                return 0.0
+        
+        return 0.0 
     
     def valor_total(self):
-        if self._qt_dias_realizado < self._qt_dias_reserva:
-            dias_desconto = self._qt_dias_reserva - self._qt_dias_realizado
-            return self.diarias_contrat() + self.valor_km_rodado() + dias_desconto * (self._veiculo.get_valor_diaria() * 0.2)
-        else:
-            return self.diarias_extra() + self.diarias_contrat() + self.valor_km_rodado()
+        return self.valor_km_rodado() + self.valor_diarias(True)
     
     def valor_km_rodado(self):
         valor_veiculo = self._veiculo.get_valor_km_rodado()

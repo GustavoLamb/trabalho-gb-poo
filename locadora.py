@@ -60,7 +60,7 @@ class Locadora:
         veiculo = locacao.get_veiculo()
 
         print(f"Valor total díarias: {locacao.valor_diarias():.2f}")
-        if entrada_segura("\nDeseja realizar a locacao: (S/N) \n: ", opcoes='SsNn') in 'Nn':
+        if entrada_segura("\nDeseja realizar a locacao: (S/N): ", opcoes='SsNn') in 'Nn':
             print("Locação não realizada!")
             return None
 
@@ -97,7 +97,7 @@ class Locadora:
         resposta = entrada_segura("Foram utilizados apenas esses dias: (S/N) ", opcoes='SsNn')
 
         if resposta in 'Nn':
-            dias = entrada_segura("Quantos dias foram utilizados: \n", int)
+            dias = entrada_segura("Quantos dias foram utilizados: ", int)
             locacao_cliente.set_qt_dias_realizado(dias)
         else:
             locacao_cliente.set_qt_dias_realizado(locacao_cliente.get_qt_dias_reserva())
@@ -106,10 +106,10 @@ class Locadora:
 
         limpar_console()
 
-        valor_diarias = locacao_cliente.valor_diarias(True)
+        valor_total = valor_total()
         valor_km = locacao_cliente.valor_km_rodado()
-        print(f"Valor referente aos KM percorridos: {valor_km:.2f}")
-        print(f"Valor total locação: {valor_diarias + valor_km:.2f}")
+        print(f"Valor referente aos KM percorridos: R$ {valor_km:.2f}")
+        print(f"Valor total locação: R$ {valor_total}")
         input("\nPressione ENTER para continuar")
 
         limpar_console()
@@ -196,14 +196,14 @@ class Locadora:
         cont = 0
         print("-- Resumo Locações Finalizadas -- ")
         for locacao in self._locacoes:
-            if locacao.is_finalizado() == True:
+            if locacao.is_finalizado():
                 cont +=1
                 print("Locação Finalizada n°", cont,"- Cód. Veículo", locacao.get_veiculo().get_codigo())
                 print("Kms rodados", locacao.get_km_rodado(),"km") 
                 print("Dias contratados:", locacao.get_qt_dias_reserva(),"dias") 
                 print("Dias realizados:",locacao.get_qt_dias_realizado(), "dias") 
-                print('Valor das diárias contratadas: R$ {:.2f}'.format(locacao.diarias_contrat())) 
-                print('Valor das diárias extras: R$ {:.2f}'.format(locacao.diarias_extra())) 
+                print('Valor das diárias contratadas: R$ {:.2f}'.format(locacao.valor_diarias())) 
+                print('Valor das diárias extras: R$ {:.2f}'.format(locacao.valor_diarias_extras())) 
                 print('Valor dos kms rodados: R$ {:.2f}'.format(locacao.valor_km_rodado()))
                 print('Valor Total da locação: R$ {:.2f}'.format(locacao.valor_total()))
                 print()
