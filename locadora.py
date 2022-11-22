@@ -60,7 +60,7 @@ class Locadora:
         veiculo = locacao.get_veiculo()
 
         print(f"Valor total díarias: {locacao.valor_diarias():.2f}")
-        if entrada_segura("\nDeseja realizar a locacao (S/N) \n: ", opcoes='SsNn') in 'Nn':
+        if entrada_segura("\nDeseja realizar a locacao: (S/N) \n: ", opcoes='SsNn') in 'Nn':
             print("Locação não realizada!")
             return None
 
@@ -94,10 +94,10 @@ class Locadora:
             return None
         
         print(f"Dias contratados: {locacao_cliente.get_qt_dias_reserva()} dias.")
-        resposta = entrada_segura("Foram utlizados apenas esses dias: ", opcoes='SsNn')
+        resposta = entrada_segura("Foram utilizados apenas esses dias: (S/N) ", opcoes='SsNn')
 
         if resposta in 'Nn':
-            dias = entrada_segura("Quantos dias foram utilzados: ", int)
+            dias = entrada_segura("Quantos dias foram utilizados: \n", int)
             locacao_cliente.set_qt_dias_realizado(dias)
         else:
             locacao_cliente.set_qt_dias_realizado(locacao_cliente.get_qt_dias_reserva())
