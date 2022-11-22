@@ -198,7 +198,7 @@ class Locadora:
         for locacao in self._locacoes:
             if locacao.is_finalizado() == True:
                 cont +=1
-                print("Locação n°", cont,"e Veículo n°", locacao.get_veiculo().get_codigo())
+                print("Locação Finalizada n°", cont,"- Cód. Veículo", locacao.get_veiculo().get_codigo())
                 print("Kms rodados", locacao.get_km_rodado(),"km") 
                 print("Dias contratados:", locacao.get_qt_dias_reserva(),"dias") 
                 print("Dias realizados:",locacao.get_qt_dias_realizado(), "dias") 
