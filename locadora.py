@@ -60,7 +60,7 @@ class Locadora:
         veiculo = locacao.get_veiculo()
 
         print(f"Valor total díarias: {locacao.valor_diarias():.2f}")
-        if entrada_segura("\nDeseja realizar a locacao: ", opcoes='SsNn') in 'Nn':
+        if entrada_segura("\nDeseja realizar a locacao (S/N) \n: ", opcoes='SsNn') in 'Nn':
             print("Locação não realizada!")
             return None
 

@@ -1,7 +1,5 @@
 from locadora import Locadora
 from utils import limpar_console, entrada_segura
-#from locacao import Locacao
-#from veiculo import Veiculo
 
 #Função de menu
 def menu():
@@ -30,16 +28,14 @@ if __name__ == '__main__':
     # Inicia locadora
     locadora = Locadora() 
 
-    locacoes = []
-    #veiculos = []
     escolha = '0'
     while escolha != '7':
         escolha = menu()
         
         if escolha == '1':
-            atributo = entrada_segura('Informe o parametro para consulta: ', opcoes=['Modelo', 'Cor', 'Ano', 'Cidade']).lower()
+            atributo = entrada_segura('Informe o parâmetro para consulta: (Modelo, Cor, Ano ou Cidade) \n', opcoes=['Modelo', 'Cor', 'Ano', 'Cidade']).lower()
             tipo_atributo = int if atributo == 'ano' else str
-            valor_consulta = entrada_segura('Informe o valor para consulta: ', tipo_atributo)
+            valor_consulta = entrada_segura('Informe o valor para consulta: \n', tipo_atributo)
             
             limpar_console()
             locadora.consultar_veiculos(atributo, valor_consulta)
