@@ -106,7 +106,7 @@ class Locadora:
 
         limpar_console()
 
-        valor_total = valor_total()
+        valor_total = locacao_cliente.valor_total()
         valor_km = locacao_cliente.valor_km_rodado()
         print(f"Valor referente aos KM percorridos: R$ {valor_km:.2f}")
         print(f"Valor total locação: R$ {valor_total}")
