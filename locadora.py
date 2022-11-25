@@ -87,11 +87,12 @@ class Locadora:
 
     def realizar_devolucao(self, cliente, cidade_devolucao, km_percorrido):
         locacao_cliente = self._consultar_locacao_cliente(cliente)
-        veiculo_cliente = locacao_cliente.get_veiculo()
 
         if locacao_cliente == None:
             print("Cliente informado não possui locação!!")
             return None
+        
+        veiculo_cliente = locacao_cliente.get_veiculo()
         
         print(f"Dias contratados: {locacao_cliente.get_qt_dias_reserva()} dias.")
         resposta = entrada_segura("Foram utilizados apenas esses dias: (S/N) ", opcoes='SsNn')
